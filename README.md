@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # dm-data-field-shuffler
 Shuffles the order of fields within each data record. This breaks simple field-order-dependent attacks and analysis without altering the individual field values. - Focused on Tools designed to generate or mask sensitive data with realistic-looking but meaningless values
 

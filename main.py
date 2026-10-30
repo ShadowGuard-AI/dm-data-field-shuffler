@@ -34,9 +34,14 @@ def shuffle_data(input_file, output_file, header=False):
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
-            # Read the header if it exists
-            header_row = next(reader) if header else None
-            if header_row:
+            # Read the header if it exists. An empty file has no header to
+            # preserve; next() on it raised StopIteration, whose empty
+            # message left the error log saying only "An error occurred: ".
+            if header:
+                try:
+                    header_row = next(reader)
+                except StopIteration:
+                    raise ValueError("Input file is empty, so it has no header row to preserve.")
                 writer.writerow(header_row)  # Write the header to the output
 
             # Process each row and shuffle the fields

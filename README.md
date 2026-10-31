@@ -9,6 +9,8 @@ Shuffles the order of fields within each data record. This breaks simple field-o
 ## Usage
 `./dm-data-field-shuffler [params]`
 
+Naming the output file as the input file is refused at exit 1 before any file is opened. An empty input file exits 1 with the line `Input file is empty.`, whether or not the header flag is given, and writes no output.
+
 ## Parameters
 - `-h`: Show help message and exit
 - `-H`: Treat the first row as a header and preserve it.

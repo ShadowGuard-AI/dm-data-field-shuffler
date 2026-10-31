@@ -27,35 +27,42 @@ def shuffle_data(input_file, output_file, header=False):
         output_file (str): Path to the output CSV file.
         header (bool): Whether the first row is a header and should be preserved.
     """
+    # Refuse in place output before any file is opened. Resolved paths
+    # catch the same string, alias spellings, and symlinks alike.
+    from pathlib import Path
+    if Path(input_file).resolve() == Path(output_file).resolve():
+        logging.error("Output file is the same as the input file. Refusing to overwrite the input.")
+        sys.exit(1)
+
     try:
-        with open(input_file, 'r', newline='') as infile, \
-             open(output_file, 'w', newline='') as outfile:
+        # Read the whole input before any output path is opened, so a
+        # failed run never truncates data or leaves a partial output.
+        with open(input_file, 'r', newline='') as infile:
+            rows = list(csv.reader(infile))
 
-            reader = csv.reader(infile)
+        if not rows:
+            print("Input file is empty.")
+            sys.exit(1)
+
+        if header:
+            header_row = rows[0]
+            data_rows = rows[1:]
+        else:
+            header_row = None
+            data_rows = rows
+
+        with open(output_file, 'w', newline='') as outfile:
             writer = csv.writer(outfile)
-
-            # Read the header if it exists. An empty file has no header to
-            # preserve; next() on it raised StopIteration, whose empty
-            # message left the error log saying only "An error occurred: ".
             if header:
-                try:
-                    header_row = next(reader)
-                except StopIteration:
-                    raise ValueError("Input file is empty, so it has no header row to preserve.")
-                writer.writerow(header_row)  # Write the header to the output
+                writer.writerow(header_row)
 
-            # Process each row and shuffle the fields
-            for row in reader:
-                # Validate the row
+            for row in data_rows:
                 if not row:
                     logging.warning(f"Skipping empty row.")
-                    continue  # Skip empty rows
+                    continue
 
-                # Shuffle the row's fields
-                shuffled_row = row[:]  # Create a copy to avoid modifying the original
+                shuffled_row = row[:]
                 random.shuffle(shuffled_row)
-
-                # Write the shuffled row to the output
                 writer.writerow(shuffled_row)
 
         logging.info(f"Successfully shuffled data from {input_file} to {output_file}.")

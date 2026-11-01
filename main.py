@@ -44,6 +44,9 @@ def shuffle_data(input_file, output_file, header=False):
             print("Input file is empty.")
             sys.exit(1)
 
+        # There is no seed argument, so the shuffles cannot be
+        # reproduced or reversed from a record of the run: the only
+        # way back from the output is matching values by content.
         if header:
             header_row = rows[0]
             data_rows = rows[1:]
@@ -61,6 +64,13 @@ def shuffle_data(input_file, output_file, header=False):
                     logging.warning(f"Skipping empty row.")
                     continue
 
+                # Each row draws its own permutation, so the row
+                # keeps its own values but no position means the same
+                # field from one row to the next: read back by column,
+                # the output mixes fields freely down every column.
+                # That is the point of this tool, and also why the
+                # output cannot be unshuffled without the header, and
+                # not reliably even with it when values repeat.
                 shuffled_row = row[:]
                 random.shuffle(shuffled_row)
                 writer.writerow(shuffled_row)

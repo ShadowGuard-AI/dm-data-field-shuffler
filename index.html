@@ -1,166 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dm Data Field Shuffler: what it is, how it runs, where it stops</title>
-<meta name="description" content="Dm Data Field Shuffler is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
-<style>
-:root {
-  --bg: #121418; --panel: #1c2028; --ink: #e8ecf0;
-  --mut: #252b36;
-  --acc: #5cc8e0; --acc2: #f0a05c;
-  --line: #1c2028;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: ' Gill Sans', 'Segoe UI', sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'SF Mono', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
-</style>
-</head>
-<body class="layout-term">
-<!-- This page exists for dm-data-field-shuffler alone: the layout (terminal-frame),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Dm Data Field Shuffler logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Dm Data Field Shuffler</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/dm-data-field-shuffler">github.com/ShadowGuard-AI/dm-data-field-shuffler</a></p>
-</header>
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>dm-data-field-shuffler: Assyrian Library of Clay Tablets</title>
+<style>@font-face{font-family:Disp;src:url("fonts/BungeeTint.ttf")}@font-face{font-family:Text;src:url("fonts/Bitter.ttf")}
+body{background:#cbb27e;font-family:Text,serif;color:#1d1a16;margin:0}main{max-width:920px;margin:0 auto;padding:28px}
+h1,h2,h3{font-family:Disp,sans-serif;color:#161310}section{background:#f0deac;padding:18px 22px;margin:16px 0;border-left:10px solid #5e4024;border-right:10px solid #5e4024;position:relative}
+section::before{content:"";position:absolute;left:-10px;top:0;width:10px;height:100%;background:#402e1c}
+.rule{height:8px;background:#243876;margin:10px 0}.lamp{display:inline-block;width:10px;height:10px;border-radius:50%;background:#c29836}
+img{max-width:100%}button{background:#e2c68c;color:#161310;border:2px solid #161310;border-radius:12px 4px 14px 5px;padding:12px 20px;margin:4px;font-family:Disp,sans-serif;box-shadow:0 4px 0 #243876}
+button:hover{background:#f0deac}button:active{transform:translateY(4px);box-shadow:none}button:focus{outline:4px double #c29836}
+a{color:#161310}a:hover{color:#243876}.wedge{color:#161310;font-weight:bold}label{font-family:Disp,sans-serif;font-size:14px}
+pre{white-space:pre-wrap;font-family:Text,serif;background:#efe0b8;padding:14px;border-top:4px solid #243876}code{font-family:Text,serif}</style></head><body><main>
+<img src="intro-banner.png" alt="Introduction banner: lamplight on stacked clay, one inscribed tablet on the reading table, no name anywhere">
+<h1>dm-data-field-shuffler: Assyrian Library of Clay Tablets</h1>
+<p>dm-data-field-shuffler: Assyrian Library of Clay Tablets names itself in that form throughout this page. The page is laid out as a shelf walk, one bay per plate, read as a visitor moves down an aisle. Lapis is held for rules, shelf bands, and the active marker. Gold appears on lamp points and on nothing structural. <span class="lamp"></span></p>
+<img src="logo.png" alt="Logo: one inscribed clay tablet with a lapis band across its foot"><img src="banner.png" alt="Wordmark banner: tablets filling the left half, the lamp lit aisle at the right, and the shelf tag carrying the name">
+<img src="scene.svg" alt="Animated scene in three bands">
+<div><button type="button">Shuffle the Field Order</button> <label><input type="checkbox"> Keep the First Row as Header</label></div>
+<h3>Order Changes, Values Do Not</h3><h3>Refused Before Opening</h3><h3>Nothing Written from an Empty File</h3>
+<p><span class="wedge">&#9656;</span> <a href="#record">The preserved README record</a></p>
+<section><h2>Plate one: the job</h2><p>Field order inside each record is shuffled. Values are not altered. Position based study of the records is what this defeats, because position stops being a stable clue to what a field holds.</p></section>
+<section><h2>Plate two: the two file refusals</h2><p>An output name that matches the input name ends the run at exit 1 before any file is opened. An empty input ends the run at exit 1, prints the fixed line held in the record block below, and writes no output, with or without the header flag.</p></section>
+<section><h2>Plate three: the copying bay, repaired</h2><p><code>git clone https://github.com/ShadowGuard-AI/dm-data-field-shuffler</code></p><p>A marginal wedge announces that a repair happened here rather than pretending the tablet always read that way. The clone command above carries the organisation spelled with the hyphen. The spelling the README itself uses is a different one: it drops the hyphen. Across the whole fetched README that hyphenless spelling occurs 2 times, 1 in the install line and 1 in the closing rights line, while the hyphenated spelling occurs 0 times there.</p></section>
+<section><h2>Plate four: the usage shape</h2><p><code>./dm-data-field-shuffler &lt;input path&gt; &lt;output path&gt; [params]</code></p><p>The shape shows a program call, then placeholders for the input path, the output path, and any parameters. No real path from any machine appears. The live README itself never names the file arguments, so this site labels them as positions a caller must supply, not as names the README gives.</p></section>
+<section><h2>Plate five: the two printed controls</h2><p>Help first: <code>-h</code> shows the help message and exits. Header second: <code>-H</code> treats the first row as a header and preserves it, while every row beneath it gets reordered.</p><p>What no control covers, on the evidence available: no seed control is documented, no format choice is documented, and no output message is documented.</p></section>
+<section><h2>Plate six: rights</h2><p>Two things stand side by side in this last bay. First, the README own rights line, reproduced untouched in the record block underneath. Second, a terse reminder: the separate LICENSE document runs on MIT terms, and who holds those terms has been noted by arrangement alone, pen name, bracketed shortening, handle, never by spelling the arrangement out.</p></section>
+<section id="record"><h2>The preserved README record</h2><pre>![Banner](banner.png)
 
-<main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/dm-data-field-shuffler">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Dm Data Field Shuffler is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Dm Data Field Shuffler: 5 files, 117 counted
-          lines across Python 99, Markdown 17, Text 1. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/dm-data-field-shuffler.git<br>$ cd dm-data-field-shuffler</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 9 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>logging.basicConfig(level=logging.INFO, format=&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;)
+# dm-data-field-shuffler
+Shuffles the order of fields within each data record. This breaks simple field-order-dependent attacks and analysis without altering the individual field values. - Focused on Tools designed to generate or mask sensitive data with realistic-looking but meaningless values
 
-def setup_argparse():
-    &quot;&quot;&quot;
-    Sets up the argument parser for the command line interface.
-    &quot;&quot;&quot;
-    parser = argparse.ArgumentParser(description=&quot;Shuffles the order of fields within each data record.&quot;)
-    parser.add_argument(&quot;input_file&quot;, help=&quot;The input CSV file to shuffle.&quot;)
-    parser.add_argument(&quot;output_file&quot;, help=&quot;The output CSV file to write the shuffled data to.&quot;)
-    parser.add_argument(&quot;-H&quot;, &quot;--header&quot;, action=&quot;store_true&quot;, help=&quot;Treat the first row as a header and preserve it.&quot;)
-    return parser
+## Install
+`git clone https://github.com/ShadowGuardAI/dm-data-field-shuffler`
 
-def shuffle_data(input_file, output_file, header=False):
-    &quot;&quot;&quot;
-    Shuffles the fields within each data record of a CSV file.
+## Usage
+`./dm-data-field-shuffler [params]`
 
-    Args:
-        input_file (str): Path to the input CSV file.
-        output_file (str): Path to the output CSV file.
-        header (bool): Whether the first row is a header and should be preserved.
-    &quot;&quot;&quot;
-    try:</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>99</td></tr>
-        <tr><td><code>README.md</code></td><td>17</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>1</td></tr>
-        <tr><td><code>banner.png</code></td><td>0</td></tr>
-        <tr><td><code>logo.png</code></td><td>0</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, shuffle_data, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/dm-data-field-shuffler/tree/main/dm-data-field-shuffler-Visuals">dm-data-field-shuffler-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Dm Data Field Shuffler">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Dm Data Field Shuffler">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Dm Data Field Shuffler">
-        </div>
-      </section>
-    </div>
-  </section>
-</main>
-<footer>
-  <p>Dm Data Field Shuffler is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
-</body>
-</html>
+Naming the output file as the input file is refused at exit 1 before any file is opened. An empty input file exits 1 with the line `Input file is empty.`, whether or not the header flag is given, and writes no output.
+
+## Parameters
+- `-h`: Show help message and exit
+- `-H`: Treat the first row as a header and preserve it.
+
+## License
+Copyright (c) ShadowGuardAI</pre></section>
+</main></body></html>

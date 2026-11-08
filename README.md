@@ -18,12 +18,12 @@ Shuffles the order of fields within each data record. This breaks simple field-o
 ![Major separator](sep-heavy.svg)
 
 ## Install
-`git clone https://github.com/ShadowGuardAI/dm-data-field-shuffler`
+`git clone https://github.com/ShadowGuard-AI/dm-data-field-shuffler`
 
 ![Minor separator](sep-light.svg)
 
 ## Usage
-`./dm-data-field-shuffler [params]`
+`python3 main.py input_file output_file [options]`
 
 Naming the output file as the input file is refused at exit 1 before any file is opened. An empty input file exits 1 with the line `Input file is empty.`, whether or not the header flag is given, and writes no output.
 
@@ -42,7 +42,7 @@ Naming the output file as the input file is refused at exit 1 before any file is
 ![Minor separator](sep-light.svg)
 
 ## License
-Copyright (c) ShadowGuardAI
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ![Major separator](sep-heavy.svg)
 
